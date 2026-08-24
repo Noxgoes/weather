@@ -55,9 +55,9 @@ button {
 
 .weather-hero {
   display: grid;
-  grid-template-columns: minmax(0, 0.95fr) minmax(340px, 520px);
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 500px);
   align-items: center;
-  gap: 42px;
+  gap: 34px;
   min-height: 360px;
   padding: clamp(28px, 5vw, 56px);
   overflow: hidden;
@@ -78,8 +78,8 @@ button {
 
 .weather-hero h1 {
   margin: 0;
-  max-width: 12ch;
-  font-size: clamp(3rem, 7vw, 5rem);
+  max-width: 11ch;
+  font-size: clamp(3rem, 5.2vw, 4.5rem);
   line-height: 0.94;
 }
 
@@ -340,7 +340,7 @@ button {
   font-size: 1.7rem;
 }
 
-@media (max-width: 1080px) {
+@media (max-width: 1280px) {
   .weather-hero {
     grid-template-columns: 1fr;
     align-items: start;
@@ -350,7 +350,7 @@ button {
 
   .weather-hero h1 {
     max-width: none;
-    font-size: clamp(3rem, 9vw, 4.8rem);
+    font-size: clamp(3rem, 7.5vw, 4.8rem);
   }
 
   .hero-copy {

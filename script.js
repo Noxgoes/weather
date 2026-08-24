@@ -157,13 +157,13 @@ function renderWeather(place, weather) {
 
 function renderJsonHighlights(place, weather, pressure) {
   const rows = [
-    ["results[0].latitude", place.latitude.toFixed(4)],
-    ["results[0].longitude", place.longitude.toFixed(4)],
-    ["current.temperature_2m", formatUnit(weather.current.temperature_2m, weather.current_units.temperature_2m, 1)],
-    ["current.relative_humidity_2m", formatUnit(weather.current.relative_humidity_2m, weather.current_units.relative_humidity_2m, 0)],
-    ["current.wind_speed_10m", formatUnit(weather.current.wind_speed_10m, weather.current_units.wind_speed_10m, 1)],
-    ["hourly.surface_pressure", pressure === null ? "Unavailable" : `${Math.round(pressure)} hPa`],
-    ["timezone", weather.timezone],
+    ["Latitude", place.latitude.toFixed(4)],
+    ["Longitude", place.longitude.toFixed(4)],
+    ["Current temperature", formatUnit(weather.current.temperature_2m, weather.current_units.temperature_2m, 1)],
+    ["Relative humidity", formatUnit(weather.current.relative_humidity_2m, weather.current_units.relative_humidity_2m, 0)],
+    ["Wind speed", formatUnit(weather.current.wind_speed_10m, weather.current_units.wind_speed_10m, 1)],
+    ["Surface pressure", pressure === null ? "Unavailable" : `${Math.round(pressure)} hPa`],
+    ["Timezone", weather.timezone],
   ];
 
   jsonList.replaceChildren(...rows.map(([key, value]) => {
