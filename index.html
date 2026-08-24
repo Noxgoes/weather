@@ -3,166 +3,87 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TaskFlow</title>
+  <title>WeatherPulse Dashboard</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main class="app-frame">
-    <aside class="sidebar">
-      <a class="brand" href="#app-title" aria-label="TaskFlow home">
-        <span class="brand-mark">✓</span>
-        <span>
-          <strong>TaskFlow</strong>
-          <small>Your tasks, your way.</small>
-        </span>
-      </a>
+  <main class="app-shell">
+    <section class="weather-hero" aria-labelledby="app-title">
+      <div class="hero-content">
+        <p class="eyebrow">Live REST API dashboard</p>
+        <h1 id="app-title">WeatherPulse</h1>
+        <p class="hero-copy">Search any city for current temperature, humidity, wind speed, and a clean look at the nested JSON returned by public weather APIs.</p>
+      </div>
 
-      <nav class="side-nav" aria-label="Task filters">
-        <button class="nav-filter active" type="button" data-filter="all">
-          <span class="nav-icon">□</span>
-          <span>All Tasks</span>
-          <strong id="nav-total">0</strong>
-        </button>
-        <button class="nav-filter" type="button" data-filter="active">
-          <span class="nav-icon">○</span>
-          <span>Active</span>
-          <strong id="nav-active">0</strong>
-        </button>
-        <button class="nav-filter" type="button" data-filter="completed">
-          <span class="nav-icon">✓</span>
-          <span>Completed</span>
-          <strong id="nav-completed">0</strong>
-        </button>
-      </nav>
-
-      <section class="priority-panel" aria-label="Priority summary">
-        <h2>Priority</h2>
-        <p><span class="dot high"></span>High <strong id="high-count">0</strong></p>
-        <p><span class="dot medium"></span>Medium <strong id="medium-count">0</strong></p>
-        <p><span class="dot low"></span>Low <strong id="low-count">0</strong></p>
-      </section>
-
-      <section class="quick-card">
-        <h2>Quick Stats</h2>
-        <div class="mini-progress">
-          <span id="mini-progress-bar"></span>
-          <strong id="mini-progress-percent">0%</strong>
+      <form class="search-panel" id="weather-form" autocomplete="off">
+        <label for="city-input">City name</label>
+        <div class="search-row">
+          <input id="city-input" name="city" type="search" placeholder="Try Chennai, London, Tokyo..." required>
+          <button type="submit">Search</button>
         </div>
-        <p><strong>Completion</strong><span id="mini-progress-label">0 of 0 tasks</span></p>
-      </section>
-
-      <section class="tip-card">
-        <span>!</span>
-        <div>
-          <h2>Focus Tip</h2>
-          <p>Small daily progress leads to big results.</p>
-        </div>
-      </section>
-    </aside>
-
-    <section class="workspace" aria-labelledby="app-title">
-      <header class="topbar">
-        <div>
-          <h1 id="app-title">Good evening!</h1>
-          <p>Here&apos;s what needs your attention today.</p>
-        </div>
-        <label class="top-search" for="search-input">
-          <span>Search</span>
-          <input id="search-input" type="search" placeholder="Search tasks...">
-        </label>
-        <button class="add-open-button" type="button" id="focus-task-input">+ Add Task</button>
-      </header>
-
-      <section class="stats-grid" aria-label="Task summary">
-        <article class="stat-card">
-          <span class="stat-icon clipboard">▦</span>
-          <div>
-            <p>Total Tasks</p>
-            <strong id="total-count">0</strong>
-            <small>All your tasks</small>
-          </div>
-        </article>
-        <article class="stat-card">
-          <span class="stat-icon active">◷</span>
-          <div>
-            <p>Active Tasks</p>
-            <strong id="active-count">0</strong>
-            <small>Tasks in progress</small>
-          </div>
-        </article>
-        <article class="stat-card">
-          <span class="stat-icon done">✓</span>
-          <div>
-            <p>Completed Tasks</p>
-            <strong id="completed-count">0</strong>
-            <small>Tasks completed</small>
-          </div>
-        </article>
-        <article class="stat-card">
-          <div class="donut" id="completion-donut"><span></span></div>
-          <div>
-            <p>Completion Rate</p>
-            <strong id="progress-percent">0%</strong>
-            <small>Keep going!</small>
-          </div>
-        </article>
-      </section>
-
-      <form class="task-form" id="task-form" autocomplete="off">
-        <div class="input-group task-title-field">
-          <label for="task-input">Task</label>
-          <input id="task-input" type="text" placeholder="Write the next action..." maxlength="120" required>
-        </div>
-        <div class="input-group">
-          <label for="priority-input">Priority</label>
-          <select id="priority-input">
-            <option value="low">Low</option>
-            <option value="medium" selected>Medium</option>
-            <option value="high">High</option>
-          </select>
-        </div>
-        <div class="input-group">
-          <label for="due-input">Due Date</label>
-          <input id="due-input" type="date">
-        </div>
-        <button type="submit">Save Task</button>
+        <p id="status-message" role="status" aria-live="polite">Showing live weather for Chennai, India.</p>
       </form>
+    </section>
 
-      <section class="list-panel">
-        <div class="list-toolbar">
-          <div class="toolbar" aria-label="Task filters">
-            <button class="filter-button active" type="button" data-filter="all">All</button>
-            <button class="filter-button" type="button" data-filter="active">Active</button>
-            <button class="filter-button" type="button" data-filter="completed">Completed</button>
-          </div>
-          <button class="text-button" id="clear-completed" type="button">Clear completed</button>
+    <section class="dashboard-grid">
+      <article class="current-panel" aria-labelledby="location-name">
+        <div>
+          <p class="panel-label">Current conditions</p>
+          <h2 id="location-name">Loading...</h2>
+          <p id="location-meta">Fetching weather data</p>
         </div>
+        <div class="temperature-lockup">
+          <span id="weather-icon" aria-hidden="true">☁</span>
+          <strong id="temperature">--°</strong>
+        </div>
+        <p id="condition-text">Waiting for API response.</p>
+      </article>
 
-        <p class="task-count" id="task-count">0 active tasks</p>
-        <ul class="task-list" id="task-list" aria-live="polite"></ul>
+      <section class="metrics-grid" aria-label="Live weather metrics">
+        <article class="metric-card">
+          <span>Temperature</span>
+          <strong id="metric-temperature">--°C</strong>
+          <p id="feels-summary">Actual current air temperature</p>
+        </article>
+        <article class="metric-card">
+          <span>Humidity</span>
+          <strong id="metric-humidity">--%</strong>
+          <p>Current relative humidity</p>
+        </article>
+        <article class="metric-card">
+          <span>Wind speed</span>
+          <strong id="metric-wind">-- km/h</strong>
+          <p id="wind-direction">Direction unavailable</p>
+        </article>
+        <article class="metric-card">
+          <span>Pressure</span>
+          <strong id="metric-pressure">-- hPa</strong>
+          <p>Surface pressure from hourly data</p>
+        </article>
+      </section>
+
+      <section class="details-panel" aria-labelledby="details-title">
+        <div class="section-heading">
+          <div>
+            <p class="panel-label">Parsed nested JSON</p>
+            <h2 id="details-title">API response highlights</h2>
+          </div>
+          <time id="updated-time" datetime="">--</time>
+        </div>
+        <dl class="json-list" id="json-list"></dl>
+      </section>
+
+      <section class="forecast-panel" aria-labelledby="forecast-title">
+        <div class="section-heading">
+          <div>
+            <p class="panel-label">Next hours</p>
+            <h2 id="forecast-title">Short forecast</h2>
+          </div>
+        </div>
+        <div class="forecast-list" id="forecast-list"></div>
       </section>
     </section>
   </main>
-
-  <template id="task-template">
-    <li class="task-item">
-      <label class="task-check">
-        <input type="checkbox" data-action="toggle">
-        <span></span>
-      </label>
-      <form class="edit-form">
-        <input type="text" maxlength="120" data-action="edit-input">
-      </form>
-      <div class="task-meta">
-        <span class="priority-pill"></span>
-        <span class="due-pill"></span>
-      </div>
-      <div class="task-actions">
-        <button class="icon-button" type="button" data-action="edit" aria-label="Edit task">✎</button>
-        <button class="icon-button danger" type="button" data-action="delete" aria-label="Delete task">⌫</button>
-      </div>
-    </li>
-  </template>
 
   <script src="script.js"></script>
 </body>
